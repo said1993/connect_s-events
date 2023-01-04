@@ -1,4 +1,5 @@
-﻿using connect_s_events_api.Handlers;
+﻿using connect_s_event_api.Exceptions;
+using connect_s_events_api.Handlers;
 using Mediator;
 
 namespace connect_s_events_api.Controllers;
@@ -19,7 +20,6 @@ public class EventActivitiesController : ControllerBase
     {
         using (_logger.BeginScope("Getting All Event Activities"))
         {
-            _logger.LogInformation("Get All EventActivities");
             var eventActivities = await _mediator.Send(new GetEventActivitiesRequest());
             return Ok(eventActivities);
         }
@@ -35,8 +35,16 @@ public class EventActivitiesController : ControllerBase
     [HttpPost("participants")]
     public async Task<IActionResult> AddParticipant([FromBody] AddParticipantCommand addParticipantCommand)
     {
-        await _mediator.Send(addParticipantCommand);
-        return Created("", null);
+        try
+        {
+            await _mediator.Send(addParticipantCommand);
+            return Created("", null);
+        }
+        catch (InvalidRequestExcepetion ex)
+        {
+            return BadRequest(ex.Errors);
+        }
+
     }
 
     [HttpDelete("{id}")]

@@ -2,6 +2,7 @@ using connect_s_events_api.Helpers;
 using connect_s_events_domain.EventActivities;
 using connect_s_events_infrastructure.DataAccess;
 using connect_s_events_infrastructure.EventActivities;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddMediator(options =>
 {
     options.ServiceLifetime = ServiceLifetime.Scoped;
 });
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddScoped<IDapperContext, DapperContext>()
     .AddScoped<IEventActivityRepository, EventActivityRepository>();
