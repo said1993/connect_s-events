@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "weez-connect-events-api-unit": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:56945;http://localhost:56946"
+    }
+  }
+}
