@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Restore
+        run: dotnet restore ./connect_s-events.sln
+        
+      - name: Build
+        run: dotnet build ./connect_s-events.sln --configuration Release --no-restore
+        
+      - name: Tests
+        run: dotnet test ./connect_s-events.sln --no-restore --verbosity normal
