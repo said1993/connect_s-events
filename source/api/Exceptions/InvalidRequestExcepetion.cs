@@ -1,9 +1,11 @@
 ﻿using FluentValidation.Results;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace connect_s_event_api.Exceptions;
+[ExcludeFromCodeCoverage]
 [Serializable]
-internal class InvalidRequestExcepetion : Exception
+public class InvalidRequestExcepetion : Exception
 {
     public IEnumerable<InvalidRequestError> Errors;
 

@@ -38,7 +38,7 @@ public class EventActivitiesController : ControllerBase
         try
         {
             await _mediator.Send(addParticipantCommand);
-            return Created("", null);
+            return Accepted();
         }
         catch (InvalidRequestExcepetion ex)
         {
